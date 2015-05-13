@@ -18,29 +18,27 @@ var joueur=1;
 
 function initialisation() //////////////////////////////////////////////
 {
-    tab1 = new Array(d); 
-    tab2 = new Array(d);
+    tab1 = new Array(d);
+    tab2 = new Array(d); 
+    
     document.write('<table cellpadding="0" cellspacing="0">');
-    for (var i = 0; i < d; i++) 
+    for (var i = 0; i <= d; i++) 
     {	
     	document.write("<tr id='ligne_"+i+"'>")
         tab1[i] = new Array(d); 
-        tab2[i] = new Array(d);
+       	tab2[i] = new Array(d); 
 
-        for (var j = 0; j < d; j++)
+        for (var j = 0; j <= d; j++)
         {
 
-            tab1[i][j] = 0;	
-            tab2[i][j] = 0;
-
+            tab1[i][j] = 4;
+            tab2[i][j] = 4;
             
-            document.write("<td id='col_"+i+" line_"+j+" ' class='div2'onclick=' modifier(this); coordonne(this); verification()'></td>")
-            if(i==0 || i==8){
-            	//Rogner 10 de height
-
-            }
-            if(j==0 || j==8){
-            	//Rogner 10 de width
+            if(i==0 || i==d || j==0 || j==d){
+            document.write("<td id='col_"+i+" line_"+j+" ' class='div5'</td>")
+        	}
+        	else{
+            document.write("<td id='col_"+i+" line_"+j+" ' class='div2'onclick=' modifier(this); verification()'></td>")
             }
         
         }
@@ -61,296 +59,159 @@ function initialisation() //////////////////////////////////////////////
 
 } //////////////////////////////////////////////////
 function verification(){
-	
+	 
+	var $ = function (id) {return document.getElementById(id);}; //shorten document.getElementbyId()
     for (var i = 0; i < d; i++) 
-    {	
+    {
     	
+ 		   	
 
         for (var j = 0; j < d; j++)
         {
-        	if(i==8 && j==8){
+        	if( $("col_" + i +" line_" + j +" ").className =='div3'){
+        		if($("col_" + (i+1)+" line_" + j +" ").className =='div1' || $("col_" + (i+1)+" line_" + j +" ").className =='div5'){
+        			
+        			tab1[i][j]=tab1[i][j] -1;
+        		}
+        		if($("col_" + (i+1)+" line_" + j +" ").className =='div3'){
+        			if(tab1[i+1][j]==0 || (tab1[i][j]==1 && tab1[i+1][j]==1)){
+        				tab1[i][j]=tab1[i][j] -1;
+        				tab1[i+1][j]=tab1[i+1][j] -1;
+        			}
 
-        		if(	
-            	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div1'&&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div1'
-            	){
+        		}
 
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
 
-            }
 
-            //VERIF CASE BLEU MIDDLE
-             if(
-             	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div3'&&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div3'
-            	){
+        		if($("col_" + (i-1)+" line_" + j +" ").className =='div1' || $("col_" + (i-1)+" line_" + j +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j] -1;
+        		}
+        		if($("col_" + (i-1)+" line_" + j +" ").className =='div3'){
+        			if(tab1[i-1][j]==0 || (tab1[i][j]==1 && tab1[i-1][j]==1)){
+        				tab1[i][j]=tab1[i][j] -1;
+        				tab1[i-1][j]=tab1[i-1][j] -1;
+        			}
 
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
+        		}
 
-            }
 
-        	}
-        		if(i==0 && j==8){
 
-        		if(	
-            	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div1'&&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div1'
-            	){
+        		if($("col_" + i+" line_" + (j+1) +" ").className =='div1' || $("col_" + i+" line_" + (j+1) +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j] -1;
+        		}
+        		if($("col_" + (i)+" line_" + (j+1) +" ").className =='div3'){
+        			if(tab1[i][j+1]==0 || (tab1[i][j]==1 && tab1[i][j+1]==1)){
+        				tab1[i][j]=tab1[i][j] -1;
+        				tab1[i][j+1]=tab1[i][j+1] -1;
+        			}
 
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
+        		}
 
-            }
 
-            //VERIF CASE BLEU MIDDLE
-             if(
-             	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div3'&&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div3'
-            	){
+        		if($("col_" + i+" line_" + (j-1) +" ").className =='div1' || $("col_" + i+" line_" + (j-1) +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j] -1;
+        		}
+				if($("col_" + (i)+" line_" + (j-1) +" ").className =='div3'){
+        			if(tab1[i][j-1]==0 || (tab1[i][j]==1 && tab1[i][j-1]==1)){
+        				tab1[i][j]=tab1[i][j] -1;
+        				tab1[i][j-1]=tab1[i][j-1] -1;
+        			}
 
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
-        	}
-        		if(i==8 && j==0){
-
-        		if(	
-            	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div1'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div1'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
-            //VERIF CASE BLEU MIDDLE
-             if(
-             	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div3'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div3'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
-        	}
-        		if(i==0 && j==0){
-
-        		if(	
-            	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div1'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div1'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
-            //VERIF CASE BLEU MIDDLE
-             if(
-             	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div3'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div3'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
+        		}
+        		
         	}
 
+        		// J2
+
+        	else if( $("col_" + i +" line_" + j +" ").className =='div1'){
+        		
+        		if($("col_" + (i+1)+" line_" + j +" ").className =='div3' || $("col_" + (i+1)+" line_" + j +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j] -1;
+        		}
+        		if($("col_" + (i+1)+" line_" + j +" ").className =='div1'){
+        			
+        			if(tab1[i+1][j]==0 || (tab1[i][j]==1 && tab1[i+1][j]==1)){
+        				tab1[i][j]=tab1[i][j] -1;
+        				tab1[i+1][j]=tab1[i+1][j] -1;
+        			}
+
+        		}
 
 
 
-        	if(i==8 && j+1<=d-1 && j-1>=0){
+        		if($("col_" + (i-1)+" line_" + j +" ").className =='div3' || $("col_" + (i-1)+" line_" + j +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j] -1;
+        		}
+        		if($("col_" + (i-1)+" line_" + j +" ").className =='div1'){
+        			if(tab1[i-1][j]==0 || (tab1[i][j]==1 && tab1[i-1][j]==1) ){
+        				tab1[i][j]=tab1[i][j] -1;
+        				tab1[i-1][j]=tab1[i-1][j] -1;
+        			}
+
+        		}
 
 
-            if(	
-            	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div3' &&
-            	
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div1'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div1' &&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div1'
-            	){
 
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
+        		if($("col_" + i+" line_" + (j+1) +" ").className =='div3' || $("col_" +i+" line_" + (j+1) +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j] -1;
+        		}
+        		if($("col_" + (i)+" line_" + (j+1) +" ").className =='div1'){
+        			if(tab1[i][j+1]==0 || (tab1[i][j]==1 && tab1[i][j+1]==1)){
+        				tab1[i][j]=tab1[i][j] -1;
+        				tab1[i][j+1]=tab1[i][j+1] -1;
+        			}
 
-            }
-
-            //VERIF CASE BLEU MIDDLE
-             if(
-             	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div1' &&
-            	
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div3'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div3' &&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div3'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-        }
-
-            if( i==0 && j+1<=d-1 && j-1>=0){
+        		}
 
 
-            if(	
-            	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div3' &&
-            	
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div1'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div1' &&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div1'
-            	){
+        		if($("col_" + i+" line_" + (j-1) +" ").className =='div3' || $("col_" + i+" line_" + (j-1) +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j] -1;
+        		}
+				if($("col_" + (i)+" line_" + (j-1) +" ").className =='div1'){
+        			if(tab1[i][j-1]==0 || (tab1[i][j]==1 && tab1[i][j-1]==1)){
+        				tab1[i][j]=tab1[i][j] -1;
+        				tab1[i][j-1]=tab1[i][j-1] -1;
+        			}
 
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
-            //VERIF CASE BLEU MIDDLE
-             if(
-             	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div1' &&
-            	
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div3'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div3' &&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div3'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
+        		}
+        		
         	}
-        	 //VERIF CASE ROUGE MIDDLE
-           	if(i+1<=d-1 && i-1>=0 && j==8){
+        	else if($("col_" +i+" line_" + j +" ").className =='div2') {
+        		if($("col_" +i+" line_" + (j-1) +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j]-1;
+        		}
+        		if($("col_" + i+" line_" + (j+1) +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j]-1;
+        		}
+        		if($("col_" + (i+1)+" line_" + (j) +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j]-1;
+        		}
+        		if($("col_" + (i-1)+" line_" + (j-1) +" ").className =='div5'){
+        			tab1[i][j]=tab1[i][j]-1;
+        		}
+        	}
 
-            if(	
-            	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div1'&&
-            	
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div1'
-            	){
+    		
+    	}		
+    }console.log(tab1[4][4]);
+        for (var i = 0; i < d; i++) 
+    	{
+    	
+ 		   	
 
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
+        for (var j = 0; j < d; j++)
+        {
+        	if(tab1[i][j]==0){
+        			$("col_" + i +" line_" + j +" ").className ='div2'
+        			
+        		}
+        	tab1[i][j]=4;
 
-            }
-
-            //VERIF CASE BLEU MIDDLE
-             if(
-             	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div3'&&
-            	
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div3'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-        }
-             //VERIF CASE ROUGE MIDDLE
-           	if(i+1<=d-1 && i-1>=0 && j==0 ){
-
-            if(	
-            	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div1'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div1' 
-            	
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
-            //VERIF CASE BLEU MIDDLE
-             if(
-             	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div3'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div3'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-            
-        }
-            //VERIF CASE ROUGE MIDDLE
-           	if(i+1<=d-1 && i-1>=0 && j+1<=d-1 && j-1>=0){
-
-            if(	
-            	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div1'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div1' &&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div1'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
-            //VERIF CASE BLEU MIDDLE
-             if(
-             	
-            	document.getElementById("col_"+i+" line_"+j+" ").className=='div1' &&
-            	document.getElementById("col_"+(i+1)+" line_"+j+" ").className=='div3' &&
-            	document.getElementById("col_"+(i-1)+" line_"+j+" ").className=='div3'&&
-            	document.getElementById("col_"+i+" line_"+(j+1)+" ").className=='div3' &&
-            	document.getElementById("col_"+i+" line_"+(j-1)+" ").className=='div3'
-            	){
-
-            	document.getElementById("col_"+i+" line_"+j+" ").className='div2'
-            	compteurJ2=compteurJ2+1;
-
-            }
-
-        }
-        }  
-        }
+    }
 
 }
+}
+
 function modifier(monID)  //////////////////////////////////////////////
 {	
   if(joueur==1){
@@ -389,26 +250,6 @@ function modifier(monID)  //////////////////////////////////////////////
 }
 
 
-function coordonne(monID) /////////////////////////////////////////
-{
-    id=monID.id; // ici je donne Ã  la variable id l'id de la div selectionnÃ©e. monID.id renvoi une chaine de charactÃ¨re.
-
-    var extract1 = id.indexOf("_",0); // le _ est le carctÃ¨re qui prÃ©cÃ¨de les valeur de i et de j lorsque j'ai initialisÃ© les id de mes div. 
-    var extract2 = id.indexOf("_",5); // et donc je recherche leur position dans dans ma chaine de charactÃ¨re.
-    extract1 = parseInt(id.substr(extract1+1,2)); // Ici les variables extract qui contenaient une chaine de charactÃ¨res vont recevoir mes valeur de i et de j
-    extract2 = parseInt(id.substr(extract2+1,2)); 
-
-    if (tab1[extract1][extract2]==false) // aprÃ¨s je regarde quelle est la valeur correspondante dans mon tableau et je l'inverse.
-    {
-        tab1[extract1][extract2]=1;	
-    }
-    else
-    {
-        tab1[extract1][extract2]=false;	
-    }
-
-    
-} /////////////////////////////////////////////////////
 function game()
 {
 
